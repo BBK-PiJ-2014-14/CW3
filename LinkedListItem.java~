@@ -1,0 +1,14 @@
+public class LinkedListItem {
+  Object value;
+  ListItem nextObject;
+}
+
+  LinkedListItem(Object value) {
+    this.value=value;
+    this.nextObject=null;
+  }
+  
+  public Object getObject() {
+    return value;
+  }
+

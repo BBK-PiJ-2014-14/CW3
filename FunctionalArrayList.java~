@@ -1,0 +1,24 @@
+public class FunctionalArrayList extends ArrayList implements FunctionalList  {
+  
+  FunctionalArrayList(int index) {
+    super(index);
+  }
+  
+  public ReturnObjectImp head() {
+    ReturnObjectImp result = new ReturnObjectImp();
+    if (this.arrayList[0] == null) {
+      result.errorMessage = ErrorMessage.EMPTY_STRUCTURE;
+    } else {
+      result.returnObject = this.arrayList[0];
+    }
+    return result;
+  }
+  
+  public FunctionalArrayList rest() {
+    FunctionalArrayList result = new FunctionalArrayList(this.size()-1);
+    for (int n=1; n<=this.size(); n++) {
+      result.arrayList[n-1] = this.arrayList[n];
+    }
+    return result;
+  }
+}

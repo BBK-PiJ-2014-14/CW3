@@ -1,0 +1,75 @@
+public class ArrayList implements List {
+  public Object[] arrayList;
+  public int count;
+  
+  
+  public ArrayList(int length) {
+    arrayList= new Object[length];
+    count = 0;
+  }
+  
+  public boolean isEmpty() {
+    return (count == 0);
+  }
+  
+  public int size() {
+    return count;
+  }
+  
+  public ReturnObjectImp get(int index) {
+    ReturnObjectImp result = new ReturnObjectImp();
+    if (count==0) {
+      result.errorMessage = ErrorMessage.EMPTY_STRUCTURE;
+    } else if (index<0 || index>this.size()-1) {
+      result.errorMessage = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+    } else {
+      result.returnObject = arrayList[index];
+    }
+    return result;
+  }
+  
+  public ReturnObjectImp remove(int index) {
+    ReturnObjectImp result = new ReturnObjectImp();
+    if(count == 0) {
+      result.errorMessage = ErrorMessage.EMPTY_STRUCTURE;
+    } else if(index<0 || index>this.size()-1) {
+      result.errorMessage = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+    } else {
+      result.returnObject = this.get(index).getReturnValue();
+      count--;
+      for (int n=index+1; n<arrayList.length; n++) {
+        arrayList[n-1]=arrayList[n];
+      }
+      arrayList[count-1]=null; 
+    }
+    return result;
+  }
+  
+  public ReturnObjectImp add(int index, Object item) {
+    ReturnObjectImp result = new ReturnObjectImp();
+    if (index<0 || index>count) {
+      result.errorMessage = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+    } else if(item == null) {
+      result.errorMessage = ErrorMessage.INVALID_ARGUMENT;
+    } else {
+      if(this.size()==arrayList.length){
+         Object[] newArray = new Object[arrayList.length*2];
+         for (int n=0; n<arrayList.length; n++) {
+           newArray[n] = arrayList[n];
+           }
+         arrayList =newArray;
+       }
+      for (int n=this.size(); n>index; n--) {
+        arrayList[n-1] = arrayList[n];
+      }
+      arrayList[index] = item;
+      result.returnObject = arrayList[index];
+      count++;
+    }
+    return result;
+  }
+  
+  public ReturnObjectImp add(Object item) {
+    return this.add(count, item);
+  }
+}

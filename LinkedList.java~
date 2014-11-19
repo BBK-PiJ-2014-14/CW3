@@ -1,0 +1,80 @@
+public class LinkedList implements List {
+  public LinkedListItem head; 
+  public int count;
+  
+  LinkedList() {
+    this.head = null;
+    count = 0;
+  }
+
+  public boolean isEmpty () {
+    return  (count == 0);
+  }
+  
+  public int size() {
+    return count;
+  }
+  
+  public ReturnObjectImp get(int index) {
+    ReturnObjectImp result = new ReturnObjectImp();
+    LinkedListItem rslt = new LinkedListItem();
+    if (index < 0 || index >= this.size()) {
+      result.errorMessage = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+    } else {
+      rslt = head;
+      if(index>0) {
+        for(int n=0; n<index; n++) {
+          rslt = rslt.getNext();
+        }
+      }
+      result.returnObject = rslt.getObject();
+    }
+    return result;
+  }
+
+  public ReturnObjectImp remove(int index) {
+    ReturnObjectImp result = new ReturnObjectImp();
+    if (index<0 || index>= this.size()) {
+      result.errorMessage = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+    } else {
+      LinkedListItem current = head;
+      for(int n=1; n<index; n++) {
+          current = current.getNext();
+      }
+      result.returnObject = current.getObject();
+      current.setNext(current.getNext().getNext());
+      count--;
+    }  
+    return result;
+  }  
+  
+  public ReturnObjectImp add(int index, Object item) {
+    ReturnObjectImp result = new ReturnObjectImp();
+    if (index<0 || index > this.size()) {
+        result.errorMessage = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+    } else if(item==null) {
+      result.errorMessage = ErrorMessage.INVALID_ARGUMENT;
+    } else {
+      LinkedListItem newItem = new LinkedListItem(item);
+      if (index == 0) {
+        head = newItem;
+      } else {
+        LinkedListItem current = head;
+        for (int n=1; n<index; n++) {
+          current = current.getNext();
+        }
+        newItem.setNext(current.getNext());
+        current.setNext(newItem);
+      }
+      result.returnObject=item;
+      count++;
+    }
+    return result;
+  }
+  
+  public ReturnObjectImp add(Object item) {
+    return this.add(count, item);
+  }             
+}  
+    
+    

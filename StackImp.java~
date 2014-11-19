@@ -1,0 +1,42 @@
+public class StackImp extends AbstractStack  {
+
+  
+  public StackImp(List list) {
+    super(list);
+  }
+  
+  public boolean isEmpty() {
+    if(this.internalList.isEmpty()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  public int size() {
+    return this.internalList.size();
+  }
+  
+  public void push(Object item) {
+    this.internalList.add(item);
+  }
+  
+  public ReturnObjectImp top() {
+    ReturnObjectImp result = new ReturnObjectImp();
+    if (this.internalList.isEmpty()) {
+      result.returnObject = ErrorMessage.EMPTY_STRUCTURE;
+    } else {
+      result = this.internalList.get(this.internalList.size()-1);
+    }
+  }
+
+  public ReturnObjectImp pop() {
+    ReturnObjectImp result = new ReturnObjectImp();
+    if (this.internalList.isEmpty()) {
+      result.returnObject = ErrorMessage.EMPTY_STRUCTURE;
+    } else {
+      result.returnObject = this.internalList.get(internalList.size()-1).returnObject;
+      this.internalList.remove(this.internalList.size()-1);
+    }
+  }
+}

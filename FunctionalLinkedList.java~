@@ -1,0 +1,25 @@
+public class FunctionalLinkedList extends LinkedList implements FunctionalList {
+
+  
+  public ReturnObjectImp head() {
+     ReturnObjectImp result = new ReturnObjectImp();
+    if (this.value == null) {
+      result.returnObject = ErrorMessage.EMPTY_STRUCTURE;
+    } else {
+      result.returnObject = this.value;
+    }
+    return result;
+  }
+  
+  public FunctionalLinkedList rest() {
+    FunctionalLinkedList newNode = new FunctionalLinkedList();
+    if (this.nextObject == null) {
+      newNode = null;
+    } else {
+      for(int n=1; n<this.size(); n++) {
+        newNode.add(this.get(n).returnObject);
+      }
+    }
+    return newNode;
+  }
+}
